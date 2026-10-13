@@ -140,6 +140,11 @@ const DISH_INGREDIENTS_MAP: Record<string, string[]> = {
   dahi_vada: ["Urad dal dumplings", "Thick curd (Dahi)", "Sweet tamarind chutney", "Green mint chutney", "Roasted cumin", "Black salt"],
   masala_vada: ["Chana dal (Bengal gram)", "Onions", "Fennel seeds", "Curry leaves", "Green chillies", "Cooking oil", "Salt"],
   mango_pickle: ["Raw mango", "Mustard oil", "Fenugreek", "Salt", "Red chilli powder"],
+  chai: ["Tea leaves", "Milk", "Water", "Cardamom", "Ginger", "Sugar"],
+  bhindi_masala: ["Okra (Bhindi)", "Onions", "Tomatoes", "Coriander powder", "Turmeric", "Mustard oil"],
+  ras_malai: ["Chhena (Cottage cheese)", "Milk (Rabri)", "Saffron", "Pistachios", "Cardamom", "Sugar"],
+  sheer_korma: ["Vermicelli (Seviyan)", "Full-fat milk", "Ghee", "Dates", "Almonds", "Pistachios", "Cardamom"],
+  qubani_ka_meetha: ["Dried apricots (Qubani)", "Sugar syrup", "Custard/Fresh cream", "Almonds"],
 };
 
 export function getFallbackIngredients(dishLabel: string): string[] {

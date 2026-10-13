@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { calcBMI, getBMICategory, calcBMR, calcTDEE, calcCalorieTarget } from "@/lib/dietPlanner";
 import { calculateConditionScores, calculateOverallRisk, classify } from "@/lib/riskEngine";
 import { adjustNutrition } from "@/lib/dataset";
+import { mapToDatasetLabel } from "@/lib/dishLabelMap";
 import { NutritionData } from "@/lib/types";
 
 describe("NutriGuard Clinical & Mathematical Engine", () => {
@@ -129,6 +130,33 @@ describe("NutriGuard Clinical & Mathematical Engine", () => {
       const small = adjustNutrition(baseDish, 0.75);
       expect(small.calories).toBe(150);
       expect(small.protein).toBe(7.5);
+    });
+  });
+
+  describe("Dish Label & Vision Dataset Mapping Engine", () => {
+    it("should accurately distinguish and map Medu Vada / Vada vs Idli", () => {
+      const vadaRes = mapToDatasetLabel("medu_vada");
+      expect(vadaRes.label).toBe("medu_vada");
+      expect(vadaRes.nutritionName).toContain("Plain urad dal vada");
+
+      const idliRes = mapToDatasetLabel("idli");
+      expect(idliRes.label).toBe("idli");
+      expect(idliRes.nutritionName).toBe("Idli");
+    });
+
+    it("should handle regional names for Vada like 'garelu' or 'ulundu vadai'", () => {
+      const gareluRes = mapToDatasetLabel("minapa garelu");
+      expect(gareluRes.label).toBe("medu_vada");
+
+      const masalaVadaRes = mapToDatasetLabel("chana masala vada");
+      expect(masalaVadaRes.label).toBe("masala_vada");
+    });
+
+    it("should map newly mapped image labels (chai, bhindi_masala, sheer_korma, ras_malai)", () => {
+      expect(mapToDatasetLabel("chai").nutritionName).toBe("Hot tea (Garam Chai)");
+      expect(mapToDatasetLabel("bhindi_masala").nutritionName).toContain("Bhindi");
+      expect(mapToDatasetLabel("sheer_korma").nutritionName).toContain("Vermicelli");
+      expect(mapToDatasetLabel("ras_malai").nutritionName).toBe("Rasmalai");
     });
   });
 });

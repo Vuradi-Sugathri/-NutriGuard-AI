@@ -42,6 +42,9 @@ export const SampleDishSelector: React.FC<SampleDishSelectorProps> = ({
                   alt={dish.name}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/placeholder.svg";
+                  }}
                 />
               </div>
               <span className="text-[11px] font-medium text-foreground text-center truncate w-full">
